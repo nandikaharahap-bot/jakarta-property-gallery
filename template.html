@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jakarta Property Gallery</title>
+<meta name="description" content="257 for-sale listings in Jakarta Selatan and Jakarta Timur, apartments from Rp 2 miliar and houses from Rp 5 miliar, each with its photo set.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#EFF1EC; --surface:#FFFFFF; --surface-2:#E6EAE3;
+  --line:#D2D8CF; --line-soft:#E2E7DE;
+  --ink:#17211E; --ink-2:#3D4B45; --muted:#69786F;
+  --accent:#0E5C55; --on-accent:#FFFFFF; --accent-soft:#D6E7E3;
+  --warm:#9E5A14; --warm-soft:#F0E1CE;
+  --shadow:0 1px 2px rgba(23,33,30,.06),0 10px 28px -18px rgba(23,33,30,.34);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1513; --surface:#171F1C; --surface-2:#1E2825;
+  --line:#2C3833; --line-soft:#232E2A;
+  --ink:#E7EDE8; --ink-2:#B7C4BD; --muted:#87968E;
+  --accent:#59C4B2; --on-accent:#0F1513; --accent-soft:#173733;
+  --warm:#E2A05C; --warm-soft:#3A2A18;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -18px rgba(0,0,0,.85);
+}}
+:root[data-theme="dark"]{
+  --paper:#0F1513; --surface:#171F1C; --surface-2:#1E2825;
+  --line:#2C3833; --line-soft:#232E2A;
+  --ink:#E7EDE8; --ink-2:#B7C4BD; --muted:#87968E;
+  --accent:#59C4B2; --on-accent:#0F1513; --accent-soft:#173733;
+  --warm:#E2A05C; --warm-soft:#3A2A18;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -18px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+#lb :focus-visible{outline-color:#fff}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  .card:hover .hero img{transform:none}
+}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1560px;margin:0 auto;padding:0 22px 90px}
+header{padding:46px 0 0;display:flex;flex-direction:column;gap:16px}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
+  font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.03;letter-spacing:-.028em;
+  margin:0;max-width:22ch;text-wrap:balance}
+.lede{max-width:70ch;color:var(--ink-2);margin:0}
+.stats{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);
+  border-radius:4px;background:var(--surface);overflow:hidden;
+  box-shadow:var(--shadow);margin:26px 0 0}
+.stats div{flex:1 1 150px;padding:13px 17px;border-right:1px solid var(--line-soft);
+  display:flex;flex-direction:column;gap:2px}
+.stats div:last-child{border-right:0}
+.stats b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.35rem;
+  font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stats span{font-family:"IBM Plex Mono",monospace;font-size:10px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.bar{position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  padding:12px 0;margin:30px 0 26px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.bar input[type=search],.bar select{font:inherit;font-size:.86rem;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:7px 11px}
+.bar input[type=search]{flex:1 1 220px;max-width:300px}
+.seg{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  background:var(--surface)}
+.seg button{font:inherit;font-size:.8rem;font-weight:500;padding:7px 13px;border:0;
+  background:transparent;color:var(--ink-2);cursor:pointer;
+  border-right:1px solid var(--line-soft)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--on-accent);font-weight:600}
+.count{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  margin-left:auto;letter-spacing:.08em}
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:5px;
+  overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.hero{position:relative;aspect-ratio:3/2;background:var(--surface-2);cursor:zoom-in;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.card:hover .hero img{transform:scale(1.035)}
+.pcount{position:absolute;right:9px;bottom:9px;background:rgba(0,0,0,.62);
+  color:#fff;font-family:"IBM Plex Mono",monospace;font-size:10px;
+  padding:3px 7px;border-radius:99px;letter-spacing:.06em;backdrop-filter:blur(4px)}
+.tag{position:absolute;left:9px;top:9px;font-family:"IBM Plex Mono",monospace;
+  font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;
+  padding:4px 8px;border-radius:99px;background:var(--accent);color:var(--on-accent)}
+.tag.h{background:var(--warm)}
+.strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;background:var(--line-soft)}
+.strip img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;cursor:zoom-in;
+  opacity:.9;transition:opacity .2s}
+.strip img:hover{opacity:1}
+.body{padding:14px 15px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.price{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.price b{font-family:"Bricolage Grotesque",sans-serif;font-size:1.28rem;
+  font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.price span{font-family:"IBM Plex Mono",monospace;font-size:.79rem;color:var(--muted)}
+h3{margin:0;font-size:.95rem;font-weight:600;line-height:1.32;letter-spacing:-.01em}
+.loc{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.chip{padding:2px 7px;border-radius:99px;font-size:9.5px;font-weight:600;
+  background:var(--accent-soft);color:var(--accent)}
+.chip.jt{background:var(--warm-soft);color:var(--warm)}
+.spec{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:8px;
+  border-top:1px solid var(--line-soft)}
+.spec i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  color:var(--ink-2);background:var(--surface-2);padding:3px 8px;border-radius:3px}
+#lb{position:fixed;inset:0;z-index:100;background:rgba(8,12,11,.94);
+  display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;
+  padding:26px;backdrop-filter:blur(6px)}
+#lb.on{display:flex}
+#lb img{max-width:94vw;max-height:76vh;object-fit:contain;border-radius:4px;
+  box-shadow:0 24px 70px -20px rgba(0,0,0,.9)}
+#lb .meta{color:#E7EDE8;font-size:.92rem;text-align:center;max-width:70ch}
+#lb .meta b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.1rem}
+#lb .nav{display:flex;gap:10px;align-items:center}
+#lb button{font:inherit;background:rgba(255,255,255,.1);color:#fff;
+  border:1px solid rgba(255,255,255,.22);border-radius:99px;width:42px;height:42px;
+  font-size:1.1rem;cursor:pointer}
+#lb button:hover{background:rgba(255,255,255,.2)}
+#lb .close{position:absolute;top:20px;right:22px;width:40px;height:40px}
+#lb .idx{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:#B7C4BD;
+  min-width:80px;text-align:center}
+.empty{padding:60px 0;text-align:center;color:var(--muted);
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.78rem;font-family:"IBM Plex Mono",monospace}
+@media (max-width:640px){
+  .wrap{padding:0 13px 60px}
+  .grid{grid-template-columns:1fr;gap:16px}
+  .count{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">Buyer research · photos refreshed 24 August 2026</span>
+  <h1>Jakarta Property Gallery</h1>
+  <p class="lede">Every for-sale listing from the shortlist, with its full photo set.
+  Click any picture to see it full screen and arrow through the rest. Jakarta Selatan
+  and Jakarta Timur, apartments from Rp 2 miliar and houses from Rp 5 miliar, capped at
+  Rp 15 miliar.</p>
+  <dl class="stats" id="stats"></dl>
+</header>
+
+<div class="bar">
+  <input type="search" id="q" placeholder="Search tower, area, layout…" aria-label="Search listings">
+  <div class="seg" role="group" aria-label="District">
+    <button data-f="d" data-v="all" aria-pressed="true">All</button>
+    <button data-f="d" data-v="Jaksel" aria-pressed="false">Jaksel</button>
+    <button data-f="d" data-v="Jaktim" aria-pressed="false">Jaktim</button>
+  </div>
+  <div class="seg" role="group" aria-label="Property type">
+    <button data-f="t" data-v="all" aria-pressed="true">Both</button>
+    <button data-f="t" data-v="Apartment" aria-pressed="false">Apartments</button>
+    <button data-f="t" data-v="House" aria-pressed="false">Houses</button>
+  </div>
+  <div class="seg" id="kindseg" role="group" aria-label="Layout"></div>
+  <select id="max" aria-label="Maximum price">
+    <option value="99">Any price</option>
+    <option value="15">Up to 15 M</option><option value="10">Up to 10 M</option>
+    <option value="7">Up to 7 M</option><option value="5">Up to 5 M</option>
+    <option value="3">Up to 3 M</option>
+  </select>
+  <select id="sort" aria-label="Sort by">
+    <option value="p-desc">Price, high → low</option>
+    <option value="p-asc">Price, low → high</option>
+    <option value="sz-desc">Size, large → small</option>
+    <option value="m2-asc">€/m², cheapest first</option>
+  </select>
+  <span class="count" id="cnt">loading…</span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>Asking prices read off live listings on 24 August 2026 and reproduced unchanged ·
+Sources: Rumah123, Lamudi · Agent names and listing links deliberately omitted</footer>
+</div>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="close" id="close" aria-label="Close">✕</button>
+  <img id="lbImg" alt="">
+  <div class="meta" id="lbMeta"></div>
+  <div class="nav">
+    <button id="prev" aria-label="Previous photo">‹</button>
+    <span class="idx" id="lbIdx"></span>
+    <button id="next" aria-label="Next photo">›</button>
+  </div>
+</div>
+
+<script>
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const money = v => "Rp " + (v.toFixed(2).replace(/\.?0+$/,"").replace(".",",")) + " M";
+const grid = document.getElementById("grid"), cnt = document.getElementById("cnt");
+const F = {q:"", d:"all", t:"all", k:"all", max:99, sort:"p-desc"};
+let D = [], view = [];
+
+function card(it, i){
+  const strip = it.ph.length > 1
+    ? '<div class="strip">' + it.ph.slice(1,5).map((_,j) =>
+        '<img decoding="async" loading="lazy" src="p/'+it.id+'_'+(j+1)+'_t.jpg" data-i="'+i+'" data-j="'+(j+1)+'" alt="">').join("") + '</div>'
+    : "";
+  const spec = [
+    it.bb ? it.bb.replace("/"," bed / ")+" bath" : "",
+    it.sz ? it.sz.toLocaleString("en-US")+" m² "+it.sl : "",
+    it.m2 ? "€"+it.m2.toLocaleString("en-US")+"/m²" : "",
+    it.k, it.c, it.pj
+  ].filter(Boolean).map(s => "<i>"+esc(s)+"</i>").join("");
+  return '<article class="card">' +
+    '<div class="hero" data-i="'+i+'" data-j="0">' +
+      '<img decoding="async" loading="lazy" src="p/'+it.id+'_0_t.jpg" alt="">' +
+      '<span class="tag'+(it.t==="House"?" h":"")+'">'+it.t+'</span>' +
+      (it.ph.length>1?'<span class="pcount">'+it.ph.length+' photos</span>':'') +
+    '</div>' + strip +
+    '<div class="body">' +
+      '<div class="price"><b>'+money(it.p)+'</b><span>≈ €'+it.e.toLocaleString("en-US")+'</span></div>' +
+      '<h3>'+esc(it.n)+'</h3>' +
+      '<div class="loc"><span class="chip'+(it.d==="Jaktim"?" jt":"")+'">'+it.d+'</span>'+esc(it.a)+'</div>' +
+      '<div class="spec">'+spec+'</div>' +
+    '</div></article>';
+}
+
+function render(){
+  view = D.filter(it => {
+    if(F.d!=="all" && it.d!==F.d) return false;
+    if(F.t!=="all" && it.t!==F.t) return false;
+    if(F.k!=="all" && it.k!==F.k) return false;
+    if(it.p > F.max) return false;
+    if(F.q && !((it.n+" "+it.a+" "+it.pj+" "+it.k+" "+it.d).toLowerCase().includes(F.q))) return false;
+    return true;
+  });
+  const [k,dir] = F.sort.split("-");
+  view.sort((a,b) => dir==="desc" ? b[k]-a[k] : a[k]-b[k]);
+  grid.innerHTML = view.length ? view.map(card).join("")
+    : '<p class="empty">No listing matches those filters.</p>';
+  cnt.textContent = view.length + " of " + D.length + " listings";
+}
+
+/* ---------- lightbox ---------- */
+const lbEl = document.getElementById("lb"), lbImg = document.getElementById("lbImg"),
+      lbMeta = document.getElementById("lbMeta"), lbIdx = document.getElementById("lbIdx");
+let cur = null, curJ = 0;
+function show(){
+  lbImg.src = "p/" + cur.id + "_" + curJ + "_f.jpg";
+  lbMeta.innerHTML = "<b>"+esc(cur.n)+"</b>"+money(cur.p)+" · ≈ €"+cur.e.toLocaleString("en-US")+
+    " · "+esc(cur.a)+" · "+cur.d;
+  const lab = cur.lb && cur.lb[curJ] ? cur.lb[curJ] : "";
+  lbIdx.textContent = (curJ+1)+" / "+cur.ph.length + (lab ? " · "+lab : "");
+}
+function step(d){ if(!cur) return; curJ = (curJ + d + cur.ph.length) % cur.ph.length; show(); }
+function close_(){ lbEl.classList.remove("on"); document.body.style.overflow=""; cur=null; }
+grid.addEventListener("click", e => {
+  const t = e.target.closest("[data-i]");
+  if(!t) return;
+  cur = view[+t.dataset.i]; curJ = +(t.dataset.j||0);
+  if(!cur) return;
+  show(); lbEl.classList.add("on"); document.body.style.overflow="hidden";
+});
+document.getElementById("prev").addEventListener("click", e => { e.stopPropagation(); step(-1); });
+document.getElementById("next").addEventListener("click", e => { e.stopPropagation(); step(1); });
+document.getElementById("close").addEventListener("click", close_);
+lbEl.addEventListener("click", e => { if(e.target === lbEl) close_(); });
+document.addEventListener("keydown", e => {
+  if(!lbEl.classList.contains("on")) return;
+  if(e.key==="Escape") close_();
+  if(e.key==="ArrowLeft") step(-1);
+  if(e.key==="ArrowRight") step(1);
+});
+
+document.getElementById("q").addEventListener("input", e => { F.q=e.target.value.toLowerCase().trim(); render(); });
+document.getElementById("sort").addEventListener("change", e => { F.sort=e.target.value; render(); });
+document.getElementById("max").addEventListener("change", e => { F.max=+e.target.value; render(); });
+function wireSeg(root){
+  root.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    root.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x===b));
+    F[b.dataset.f] = b.dataset.v; render();
+  }));
+}
+
+fetch("data.json").then(r => r.json()).then(j => {
+  D = j.items;
+  const nA = D.filter(x=>x.t==="Apartment").length, nH = D.length-nA;
+  const nP = D.reduce((s,x)=>s+x.ph.length,0);
+  const ps = D.map(x=>x.p).sort((a,b)=>a-b), med = ps[Math.floor(ps.length/2)];
+  document.getElementById("stats").innerHTML =
+    '<div><b>'+nA+'</b><span>Apartments</span></div>' +
+    '<div><b>'+nH+'</b><span>Houses</span></div>' +
+    '<div><b>'+nP+'</b><span>Photos</span></div>' +
+    '<div><b>'+money(med)+'</b><span>Median ask</span></div>' +
+    '<div><b>€'+Math.round(med*1e9/j.eur).toLocaleString("en-US")+'</b><span>Median in €</span></div>' +
+    '<div><b>€1 = Rp 20.700</b><span>Rate used</span></div>';
+  const kinds = [...new Set(D.map(x=>x.k).filter(Boolean))].sort();
+  document.getElementById("kindseg").innerHTML =
+    '<button data-f="k" data-v="all" aria-pressed="true">All layouts</button>' +
+    kinds.map(k=>'<button data-f="k" data-v="'+esc(k)+'" aria-pressed="false">'+esc(k)+'</button>').join("");
+  document.querySelectorAll(".seg").forEach(wireSeg);
+  render();
+}).catch(e => { cnt.textContent = "failed to load data"; console.error(e); });
+</script>
+</body>
+</html>
