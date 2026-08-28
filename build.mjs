@@ -2,8 +2,8 @@
  * Build step: inflate the listing data, pull every photo from the source CDN,
  * and write two sizes per photo into dist/p/.
  *
- *   <id>_<n>_t.jpg   440px  card + strip thumbnail
- *   <id>_<n>_f.jpg   1200px lightbox
+ *   <id>_<n>_t.webp   560px  card + strip thumbnail
+ *   <id>_<n>_f.webp  1600px  detail view (HD)
  *
  * Photos are baked into the deployment, so the finished site serves its own
  * images and never calls back out to the portals.
@@ -85,12 +85,12 @@ async function work(job) {
     try {
       const buf = await grab(url);
       await Promise.all([
-        sharp(buf).resize({ width: 440, withoutEnlargement: true })
-          .jpeg({ quality: 74, progressive: true, mozjpeg: true })
-          .toFile(`${P}/${id}_${n}_t.jpg`),
-        sharp(buf).resize({ width: 1200, withoutEnlargement: true })
-          .jpeg({ quality: 80, progressive: true, mozjpeg: true })
-          .toFile(`${P}/${id}_${n}_f.jpg`),
+        sharp(buf).resize({ width: 560, withoutEnlargement: true })
+          .webp({ quality: 78, effort: 4 })
+          .toFile(`${P}/${id}_${n}_t.webp`),
+        sharp(buf).resize({ width: 1600, withoutEnlargement: true })
+          .webp({ quality: 82, effort: 4 })
+          .toFile(`${P}/${id}_${n}_f.webp`),
       ]);
       if (++done % 100 === 0) console.log(`  ${done}/${jobs.length}`);
       return;
@@ -124,12 +124,12 @@ for (const it of items) {
   for (let k = 0; k < surv.length; k++) {
     if (surv[k] === k) continue;
     for (const suf of ["t", "f"]) {
-      await copyFile(`${P}/${it.id}_${surv[k]}_${suf}.jpg`,
-                     `${P}/${it.id}_${k}_${suf}.jpg`).catch(() => {});
+      await copyFile(`${P}/${it.id}_${surv[k]}_${suf}.webp`,
+                     `${P}/${it.id}_${k}_${suf}.webp`).catch(() => {});
     }
   }
   it.ph = surv.map((n) => it.ph[n]);
-  it.lb = surv.map((n) => (it.lb && it.lb[n]) || "");
+  it.rl = surv.map((n) => (it.rl && it.rl[n]) || "");
 }
 const kept = items.filter((it) => it.ph.length > 0);
 console.log(`dropped ${dropped} photos; ${kept.length}/${items.length} listings kept`);

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jakarta Property Gallery</title>
-<meta name="description" content="257 for-sale listings in Jakarta Selatan and Jakarta Timur, apartments from Rp 2 miliar and houses from Rp 5 miliar, each with its photo set.">
+<meta name="description" content="257 for-sale listings in Jakarta Selatan and Jakarta Timur, apartments from Rp 2 miliar and houses from Rp 5 miliar, each with its photo set and reference code.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
   --accent:#0E5C55; --on-accent:#FFFFFF; --accent-soft:#D6E7E3;
   --warm:#9E5A14; --warm-soft:#F0E1CE;
   --shadow:0 1px 2px rgba(23,33,30,.06),0 10px 28px -18px rgba(23,33,30,.34);
+  --scrim:rgba(238,241,236,.97);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#0F1513; --surface:#171F1C; --surface-2:#1E2825;
@@ -25,6 +26,7 @@
   --accent:#59C4B2; --on-accent:#0F1513; --accent-soft:#173733;
   --warm:#E2A05C; --warm-soft:#3A2A18;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -18px rgba(0,0,0,.85);
+  --scrim:rgba(9,13,12,.97);
 }}
 :root[data-theme="dark"]{
   --paper:#0F1513; --surface:#171F1C; --surface-2:#1E2825;
@@ -33,10 +35,10 @@
   --accent:#59C4B2; --on-accent:#0F1513; --accent-soft:#173733;
   --warm:#E2A05C; --warm-soft:#3A2A18;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -18px rgba(0,0,0,.85);
+  --scrim:rgba(9,13,12,.97);
 }
 *{box-sizing:border-box}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
-#lb :focus-visible{outline-color:#fff}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
   .card:hover .hero img{transform:none}
@@ -51,7 +53,9 @@ header{padding:46px 0 0;display:flex;flex-direction:column;gap:16px}
 h1{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
   font-size:clamp(2rem,4.4vw,3.3rem);line-height:1.03;letter-spacing:-.028em;
   margin:0;max-width:22ch;text-wrap:balance}
-.lede{max-width:70ch;color:var(--ink-2);margin:0}
+.lede{max-width:72ch;color:var(--ink-2);margin:0}
+.lede code{font-family:"IBM Plex Mono",monospace;font-size:.86em;
+  background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:3px}
 .stats{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);
   border-radius:4px;background:var(--surface);overflow:hidden;
   box-shadow:var(--shadow);margin:26px 0 0}
@@ -68,7 +72,7 @@ h1{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
   padding:12px 0;margin:30px 0 26px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .bar input[type=search],.bar select{font:inherit;font-size:.86rem;color:var(--ink);
   background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:7px 11px}
-.bar input[type=search]{flex:1 1 220px;max-width:300px}
+.bar input[type=search]{flex:1 1 240px;max-width:320px}
 .seg{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;
   background:var(--surface)}
 .seg button{font:inherit;font-size:.8rem;font-weight:500;padding:7px 13px;border:0;
@@ -80,8 +84,10 @@ h1{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
   margin-left:auto;letter-spacing:.08em}
 .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:5px;
-  overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.hero{position:relative;aspect-ratio:3/2;background:var(--surface-2);cursor:zoom-in;overflow:hidden}
+  overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;
+  cursor:pointer;transition:border-color .18s,transform .18s}
+.card:hover{border-color:var(--accent)}
+.hero{position:relative;aspect-ratio:3/2;background:var(--surface-2);overflow:hidden}
 .hero img{width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .5s cubic-bezier(.2,.7,.3,1)}
 .card:hover .hero img{transform:scale(1.035)}
@@ -92,9 +98,12 @@ h1{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
   font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;
   padding:4px 8px;border-radius:99px;background:var(--accent);color:var(--on-accent)}
 .tag.h{background:var(--warm)}
+.refbadge{position:absolute;right:9px;top:9px;font-family:"IBM Plex Mono",monospace;
+  font-size:9.5px;letter-spacing:.06em;font-weight:600;padding:4px 8px;
+  border-radius:99px;background:rgba(0,0,0,.62);color:#fff;backdrop-filter:blur(4px)}
 .strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;background:var(--line-soft)}
-.strip img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;cursor:zoom-in;
-  opacity:.9;transition:opacity .2s}
+.strip img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;opacity:.9;
+  transition:opacity .2s}
 .strip img:hover{opacity:1}
 .body{padding:14px 15px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .price{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
@@ -111,47 +120,97 @@ h3{margin:0;font-size:.95rem;font-weight:600;line-height:1.32;letter-spacing:-.0
   border-top:1px solid var(--line-soft)}
 .spec i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
   color:var(--ink-2);background:var(--surface-2);padding:3px 8px;border-radius:3px}
-#lb{position:fixed;inset:0;z-index:100;background:rgba(8,12,11,.94);
-  display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;
-  padding:26px;backdrop-filter:blur(6px)}
-#lb.on{display:flex}
-#lb img{max-width:94vw;max-height:76vh;object-fit:contain;border-radius:4px;
-  box-shadow:0 24px 70px -20px rgba(0,0,0,.9)}
-#lb .meta{color:#E7EDE8;font-size:.92rem;text-align:center;max-width:70ch}
-#lb .meta b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.1rem}
-#lb .nav{display:flex;gap:10px;align-items:center}
-#lb button{font:inherit;background:rgba(255,255,255,.1);color:#fff;
-  border:1px solid rgba(255,255,255,.22);border-radius:99px;width:42px;height:42px;
-  font-size:1.1rem;cursor:pointer}
-#lb button:hover{background:rgba(255,255,255,.2)}
-#lb .close{position:absolute;top:20px;right:22px;width:40px;height:40px}
-#lb .idx{font-family:"IBM Plex Mono",monospace;font-size:.8rem;color:#B7C4BD;
-  min-width:80px;text-align:center}
+
+/* ---------- detail sheet ---------- */
+#dv{position:fixed;inset:0;z-index:100;background:var(--scrim);display:none;
+  overflow-y:auto;backdrop-filter:blur(8px)}
+#dv.on{display:block}
+.sheet{max-width:1280px;margin:0 auto;padding:22px 22px 80px;
+  display:grid;gap:26px;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr)}
+.dvtop{grid-column:1/-1;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:6px 0 2px;position:sticky;top:0;background:var(--scrim);z-index:2}
+.dvtop .refcode{font-family:"IBM Plex Mono",monospace;font-size:.85rem;font-weight:600;
+  background:var(--accent);color:var(--on-accent);padding:6px 12px;border-radius:99px;
+  border:0;cursor:pointer;letter-spacing:.05em}
+.dvtop .refcode:hover{filter:brightness(1.08)}
+.dvtop .lid{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--muted);
+  background:var(--surface-2);padding:6px 11px;border-radius:99px;border:1px solid var(--line);
+  cursor:pointer}
+.dvclose{margin-left:auto;font:inherit;font-size:1rem;background:var(--surface);
+  color:var(--ink);border:1px solid var(--line);border-radius:99px;
+  width:38px;height:38px;cursor:pointer}
+.dvclose:hover{background:var(--surface-2)}
+.stage{position:relative;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:5px;overflow:hidden;aspect-ratio:4/3}
+.stage img{width:100%;height:100%;object-fit:contain;display:block;background:#0b0f0e}
+.stage .arw{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;
+  border-radius:99px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);
+  color:#fff;font-size:1.2rem;cursor:pointer;backdrop-filter:blur(4px)}
+.stage .arw:hover{background:rgba(0,0,0,.72)}
+.stage .prev{left:12px} .stage .next{right:12px}
+.stage .cap{position:absolute;left:12px;bottom:12px;font-family:"IBM Plex Mono",monospace;
+  font-size:11px;color:#fff;background:rgba(0,0,0,.6);padding:5px 10px;border-radius:99px;
+  backdrop-filter:blur(4px);letter-spacing:.05em}
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;margin-top:8px}
+.rail img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;cursor:pointer;
+  opacity:.55;border:2px solid transparent;transition:opacity .15s,border-color .15s}
+.rail img.sel{opacity:1;border-color:var(--accent)}
+.rail img:hover{opacity:1}
+.side{display:flex;flex-direction:column;gap:16px;min-width:0}
+.side h2{font-family:"Bricolage Grotesque",sans-serif;font-size:1.35rem;font-weight:800;
+  margin:0;letter-spacing:-.02em;line-height:1.18;text-wrap:balance}
+.bigprice{font-family:"Bricolage Grotesque",sans-serif;font-size:2rem;font-weight:800;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.bigprice small{display:block;font-family:"IBM Plex Mono",monospace;font-size:.82rem;
+  font-weight:400;color:var(--muted);letter-spacing:0;margin-top:5px}
+dl.tbl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:0;
+  border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+dl.tbl dt,dl.tbl dd{margin:0;padding:8px 12px;border-bottom:1px solid var(--line-soft);
+  font-size:.85rem}
+dl.tbl dt{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;background:var(--surface-2)}
+dl.tbl dd{color:var(--ink);word-break:break-word}
+dl.tbl dt:last-of-type,dl.tbl dd:last-of-type{border-bottom:0}
+.desc{font-size:.88rem;color:var(--ink-2);background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:4px;padding:12px 14px;margin:0;max-width:68ch}
+.trace{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  line-height:1.7;border-top:1px solid var(--line);padding-top:12px}
+.trace b{color:var(--ink);font-weight:600}
 .empty{padding:60px 0;text-align:center;color:var(--muted);
   font-family:"IBM Plex Mono",monospace;font-size:.85rem}
 footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);
   color:var(--muted);font-size:.78rem;font-family:"IBM Plex Mono",monospace}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+  background:var(--accent);color:var(--on-accent);padding:10px 18px;border-radius:99px;
+  font-family:"IBM Plex Mono",monospace;font-size:.8rem;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;z-index:200}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:940px){ .sheet{grid-template-columns:1fr} }
 @media (max-width:640px){
   .wrap{padding:0 13px 60px}
   .grid{grid-template-columns:1fr;gap:16px}
   .count{margin-left:0;width:100%}
+  .sheet{padding:14px 14px 70px}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <span class="eyebrow">Buyer research · photos refreshed 24 August 2026</span>
+  <span class="eyebrow">Buyer research · revised 24 August 2026</span>
   <h1>Jakarta Property Gallery</h1>
-  <p class="lede">Every for-sale listing from the shortlist, with its full photo set.
-  Click any picture to see it full screen and arrow through the rest. Jakarta Selatan
-  and Jakarta Timur, apartments from Rp 2 miliar and houses from Rp 5 miliar, capped at
-  Rp 15 miliar.</p>
+  <p class="lede">Every for-sale listing from the shortlist, with its full photo set and
+  specifications. Click any card for the detail view. Each listing carries a reference
+  code like <code>JKT-A012</code> and, where the portal publishes one, its own listing
+  number like <code>APS7504807</code> — quote either one to find the property again.
+  Jakarta Selatan and Jakarta Timur, apartments from Rp 2 miliar and houses from Rp 5
+  miliar, capped at Rp 15 miliar.</p>
   <dl class="stats" id="stats"></dl>
 </header>
 
 <div class="bar">
-  <input type="search" id="q" placeholder="Search tower, area, layout…" aria-label="Search listings">
+  <input type="search" id="q" placeholder="Search name, area, JKT-A012, APS7504807…" aria-label="Search listings">
   <div class="seg" role="group" aria-label="District">
     <button data-f="d" data-v="all" aria-pressed="true">All</button>
     <button data-f="d" data-v="Jaksel" aria-pressed="false">Jaksel</button>
@@ -184,16 +243,8 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);
 Sources: Rumah123, Lamudi · Agent names and listing links deliberately omitted</footer>
 </div>
 
-<div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button class="close" id="close" aria-label="Close">✕</button>
-  <img id="lbImg" alt="">
-  <div class="meta" id="lbMeta"></div>
-  <div class="nav">
-    <button id="prev" aria-label="Previous photo">‹</button>
-    <span class="idx" id="lbIdx"></span>
-    <button id="next" aria-label="Next photo">›</button>
-  </div>
-</div>
+<div id="dv" role="dialog" aria-modal="true" aria-label="Listing detail"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
 
 <script>
 const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -205,18 +256,19 @@ let D = [], view = [];
 function card(it, i){
   const strip = it.ph.length > 1
     ? '<div class="strip">' + it.ph.slice(1,5).map((_,j) =>
-        '<img decoding="async" loading="lazy" src="p/'+it.id+'_'+(j+1)+'_t.jpg" data-i="'+i+'" data-j="'+(j+1)+'" alt="">').join("") + '</div>'
+        '<img decoding="async" loading="lazy" src="p/'+it.id+'_'+(j+1)+'_t.webp" alt="">').join("") + '</div>'
     : "";
   const spec = [
     it.bb ? it.bb.replace("/"," bed / ")+" bath" : "",
     it.sz ? it.sz.toLocaleString("en-US")+" m² "+it.sl : "",
     it.m2 ? "€"+it.m2.toLocaleString("en-US")+"/m²" : "",
-    it.k, it.c, it.pj
+    it.k, it.c, it.sp && it.sp.Certificate ? it.sp.Certificate : "", it.pj
   ].filter(Boolean).map(s => "<i>"+esc(s)+"</i>").join("");
-  return '<article class="card">' +
-    '<div class="hero" data-i="'+i+'" data-j="0">' +
-      '<img decoding="async" loading="lazy" src="p/'+it.id+'_0_t.jpg" alt="">' +
+  return '<article class="card" data-i="'+i+'" tabindex="0">' +
+    '<div class="hero">' +
+      '<img decoding="async" loading="lazy" src="p/'+it.id+'_0_t.webp" alt="">' +
       '<span class="tag'+(it.t==="House"?" h":"")+'">'+it.t+'</span>' +
+      '<span class="refbadge">'+it.ref+'</span>' +
       (it.ph.length>1?'<span class="pcount">'+it.ph.length+' photos</span>':'') +
     '</div>' + strip +
     '<div class="body">' +
@@ -233,7 +285,10 @@ function render(){
     if(F.t!=="all" && it.t!==F.t) return false;
     if(F.k!=="all" && it.k!==F.k) return false;
     if(it.p > F.max) return false;
-    if(F.q && !((it.n+" "+it.a+" "+it.pj+" "+it.k+" "+it.d).toLowerCase().includes(F.q))) return false;
+    if(F.q){
+      const hay = (it.n+" "+it.a+" "+it.pj+" "+it.k+" "+it.d+" "+it.ref+" "+it.lid).toLowerCase();
+      if(!hay.includes(F.q)) return false;
+    }
     return true;
   });
   const [k,dir] = F.sort.split("-");
@@ -243,33 +298,102 @@ function render(){
   cnt.textContent = view.length + " of " + D.length + " listings";
 }
 
-/* ---------- lightbox ---------- */
-const lbEl = document.getElementById("lb"), lbImg = document.getElementById("lbImg"),
-      lbMeta = document.getElementById("lbMeta"), lbIdx = document.getElementById("lbIdx");
+/* ---------- detail sheet ---------- */
+const dv = document.getElementById("dv"), sheet = document.getElementById("sheet"),
+      toastEl = document.getElementById("toast");
 let cur = null, curJ = 0;
-function show(){
-  lbImg.src = "p/" + cur.id + "_" + curJ + "_f.jpg";
-  lbMeta.innerHTML = "<b>"+esc(cur.n)+"</b>"+money(cur.p)+" · ≈ €"+cur.e.toLocaleString("en-US")+
-    " · "+esc(cur.a)+" · "+cur.d;
-  const lab = cur.lb && cur.lb[curJ] ? cur.lb[curJ] : "";
-  lbIdx.textContent = (curJ+1)+" / "+cur.ph.length + (lab ? " · "+lab : "");
+
+function toast(msg){
+  toastEl.textContent = msg; toastEl.classList.add("on");
+  clearTimeout(toast._t); toast._t = setTimeout(()=>toastEl.classList.remove("on"), 1600);
 }
-function step(d){ if(!cur) return; curJ = (curJ + d + cur.ph.length) % cur.ph.length; show(); }
-function close_(){ lbEl.classList.remove("on"); document.body.style.overflow=""; cur=null; }
-grid.addEventListener("click", e => {
-  const t = e.target.closest("[data-i]");
-  if(!t) return;
-  cur = view[+t.dataset.i]; curJ = +(t.dataset.j||0);
+function copy(text){
+  navigator.clipboard?.writeText(text).then(()=>toast("Copied "+text)).catch(()=>toast(text));
+}
+
+function detail(it){
+  const rows = [];
+  const add = (k,v) => { if(v || v===0) rows.push("<dt>"+esc(k)+"</dt><dd>"+esc(v)+"</dd>"); };
+  add("Type", it.t + (it.k ? " · "+it.k : ""));
+  add("Area", it.a + " · " + it.d);
+  if(it.pj) add("Project", it.pj);
+  add("Bed / bath", it.bb);
+  if(it.lb) add("Built area", it.lb.toLocaleString("en-US")+" m²");
+  if(it.lt) add("Land area", it.lt.toLocaleString("en-US")+" m²");
+  if(it.m2) add("Price per m²", "€"+it.m2.toLocaleString("en-US")+" / m² "+it.sl);
+  if(it.c) add("Furnishing", it.c);
+  Object.keys(it.sp||{}).forEach(k => add(k, it.sp[k]));
+  const caps = it.rl || [];
+  return '<div class="dvtop">' +
+      '<button class="refcode" data-copy="'+it.ref+'" title="Copy reference">'+it.ref+'</button>' +
+      (it.lid ? '<button class="lid" data-copy="'+it.lid+'" title="Copy listing number">'+esc(it.s)+' · '+it.lid+'</button>'
+              : '<span class="lid">'+esc(it.s)+'</span>') +
+      '<button class="dvclose" id="dvclose" aria-label="Close">✕</button>' +
+    '</div>' +
+    '<div>' +
+      '<div class="stage">' +
+        '<img id="stageImg" src="p/'+it.id+'_0_f.webp" alt="">' +
+        (it.ph.length>1 ? '<button class="arw prev" id="dprev" aria-label="Previous photo">‹</button>' +
+                          '<button class="arw next" id="dnext" aria-label="Next photo">›</button>' : "") +
+        '<span class="cap" id="stageCap"></span>' +
+      '</div>' +
+      (it.ph.length>1 ? '<div class="rail" id="rail">' + it.ph.map((_,j) =>
+        '<img data-j="'+j+'" class="'+(j===0?"sel":"")+'" src="p/'+it.id+'_'+j+'_t.webp" alt="">').join("") + '</div>' : "") +
+    '</div>' +
+    '<div class="side">' +
+      '<div><div class="bigprice">'+money(it.p)+
+        '<small>≈ €'+it.e.toLocaleString("en-US")+(it.m2?" · €"+it.m2.toLocaleString("en-US")+"/m²":"")+'</small></div></div>' +
+      '<h2>'+esc(it.n)+'</h2>' +
+      '<dl class="tbl">'+rows.join("")+'</dl>' +
+      (it.ds ? '<p class="desc">'+esc(it.ds)+'</p>' : "") +
+      '<div class="trace">Reference <b>'+it.ref+'</b><br>' +
+        (it.lid ? 'Listed on '+esc(it.s)+' as <b>'+it.lid+'</b><br>' : 'Source: '+esc(it.s)+'<br>') +
+        (it.lid && it.s==="Rumah123" ? 'Search that number on rumah123.com to reopen it.' :
+         it.lid ? 'Search that number on lamudi.co.id to reopen it.' :
+         'Search the listing name and area on '+esc(it.s)+'.') +
+      '</div>' +
+    '</div>';
+}
+
+function showStage(){
+  document.getElementById("stageImg").src = "p/"+cur.id+"_"+curJ+"_f.webp";
+  const lab = (cur.rl && cur.rl[curJ]) ? cur.rl[curJ] : "";
+  document.getElementById("stageCap").textContent =
+    (curJ+1)+" / "+cur.ph.length + (lab ? " · "+lab : "");
+  document.querySelectorAll("#rail img").forEach(im =>
+    im.classList.toggle("sel", +im.dataset.j === curJ));
+}
+function step(d){ if(!cur||cur.ph.length<2) return; curJ=(curJ+d+cur.ph.length)%cur.ph.length; showStage(); }
+function openDetail(i){
+  cur = view[i]; curJ = 0;
   if(!cur) return;
-  show(); lbEl.classList.add("on"); document.body.style.overflow="hidden";
+  sheet.innerHTML = detail(cur);
+  dv.classList.add("on"); dv.scrollTop = 0; document.body.style.overflow = "hidden";
+  showStage();
+  document.getElementById("dvclose").addEventListener("click", closeDetail);
+  const p = document.getElementById("dprev"), n = document.getElementById("dnext");
+  if(p) p.addEventListener("click", () => step(-1));
+  if(n) n.addEventListener("click", () => step(1));
+  const rail = document.getElementById("rail");
+  if(rail) rail.addEventListener("click", e => {
+    const t = e.target.closest("img[data-j]"); if(t){ curJ = +t.dataset.j; showStage(); }
+  });
+  sheet.querySelectorAll("[data-copy]").forEach(b =>
+    b.addEventListener("click", () => copy(b.dataset.copy)));
+}
+function closeDetail(){ dv.classList.remove("on"); document.body.style.overflow=""; cur=null; }
+
+grid.addEventListener("click", e => {
+  const c = e.target.closest(".card"); if(c) openDetail(+c.dataset.i);
 });
-document.getElementById("prev").addEventListener("click", e => { e.stopPropagation(); step(-1); });
-document.getElementById("next").addEventListener("click", e => { e.stopPropagation(); step(1); });
-document.getElementById("close").addEventListener("click", close_);
-lbEl.addEventListener("click", e => { if(e.target === lbEl) close_(); });
+grid.addEventListener("keydown", e => {
+  if(e.key!=="Enter" && e.key!==" ") return;
+  const c = e.target.closest(".card"); if(c){ e.preventDefault(); openDetail(+c.dataset.i); }
+});
+dv.addEventListener("click", e => { if(e.target === dv) closeDetail(); });
 document.addEventListener("keydown", e => {
-  if(!lbEl.classList.contains("on")) return;
-  if(e.key==="Escape") close_();
+  if(!dv.classList.contains("on")) return;
+  if(e.key==="Escape") closeDetail();
   if(e.key==="ArrowLeft") step(-1);
   if(e.key==="ArrowRight") step(1);
 });
