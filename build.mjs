@@ -19,8 +19,21 @@ const CONCURRENCY = 12;
 
 await mkdir(P, { recursive: true });
 
+/** Read a source file locally, falling back to the repo over HTTPS.
+ *  Lets the Vercel deployment carry only this script. */
+const SRC = "https://raw.githubusercontent.com/nandikaharahap-bot/jakarta-property-gallery/main/";
+async function source(name) {
+  try {
+    return await readFile(name, "utf8");
+  } catch {
+    const r = await fetch(SRC + name);
+    if (!r.ok) throw new Error(`cannot read ${name}: HTTP ${r.status}`);
+    return await r.text();
+  }
+}
+
 const data = JSON.parse(
-  gunzipSync(Buffer.from(await readFile("data.b64", "utf8"), "base64")).toString("utf8")
+  gunzipSync(Buffer.from(await source("data.b64"), "base64")).toString("utf8")
 );
 const { pfx, items } = data;
 
@@ -122,5 +135,5 @@ const kept = items.filter((it) => it.ph.length > 0);
 console.log(`dropped ${dropped} photos; ${kept.length}/${items.length} listings kept`);
 
 await writeFile(`${OUT}/data.json`, JSON.stringify({ eur: data.eur, items: kept }));
-await copyFile("template.html", `${OUT}/index.html`);
+await writeFile(`${OUT}/index.html`, await source("template.html"));
 console.log("build complete");
